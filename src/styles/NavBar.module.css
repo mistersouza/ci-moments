@@ -1,4 +1,18 @@
 .NavBar {
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid #dadadf;
+  }
+  
+.NavLink {
+  padding: 5px;
+}
+
+.Active i {
+  color: #2142b2;
+}
+
+.Container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
