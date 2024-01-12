@@ -13,6 +13,7 @@ const NavBar = () => {
   const setUser = useSetUser();
   const { isExpanded, setIsExpanded, ref } = useToggleMenu(); 
 
+  if (user) console.log(user)
   const handleLogOut = async () => {
     try {
     await axios.post("dj-rest-auth/logout/");
@@ -77,7 +78,7 @@ const NavBar = () => {
       </NavLink>
     </>
   );
-  
+
   return (
     <Navbar expanded={isExpanded} className={styles.NavBar} expand="md" fixed="top">
       <Container>
