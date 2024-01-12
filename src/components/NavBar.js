@@ -12,8 +12,7 @@ const NavBar = () => {
   const user = useUser();
   const setUser = useSetUser();
   const { isExpanded, setIsExpanded, ref } = useToggleMenu(); 
-
-  if (user) console.log(user)
+  
   const handleLogOut = async () => {
     try {
     await axios.post("dj-rest-auth/logout/");

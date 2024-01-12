@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
 
 import Upload from "../../assets/upload.png";
 
@@ -13,9 +14,12 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 import Asset from "../../components/Asset";
-import { Image } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { axiosRequest } from '../../api/axiosDefault'
 
 function PostCreateForm() {
+  const imageRef = useRef(null)
+  const history = useHistory()
   const [errors, setErrors] = useState({});
   const [postData, setPostData] = useState({
     title: "",
@@ -40,6 +44,26 @@ function PostCreateForm() {
       });
     }
   };
+
+  const handlePostSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("image", imageRef.current.files[0]);
+
+    try {
+      const { data } = await axiosRequest.post("/posts/", formData);
+      history.push(`/posts/${data.id}`);
+    } catch (error) {
+      console.log(error);
+      if (error.response?.status !== 401) {
+        setErrors(error.response?.data);
+      }
+    }
+    console.log('submited');
+  }
 
   const textFields = (
     <div className="text-center">
@@ -75,7 +99,7 @@ function PostCreateForm() {
   );
 
   return (
-    <Form>
+    <Form onSubmit={handlePostSubmit}>
       <Row>
         <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
           <Container
@@ -85,7 +109,11 @@ function PostCreateForm() {
               {image ? (
                 <>
                   <figure>
-                    <Image className={appStyles.Image} src={image} rounded />
+                    <Image 
+                      className={appStyles.Image}
+                      rounded
+                      src={image}
+                    />
                   </figure>
                   <div>
                     <Form.Label
@@ -111,6 +139,7 @@ function PostCreateForm() {
               <Form.File
                 id="image-upload"
                 accept="image/*"
+                ref={imageRef}
                 onChange={handleImageChange}
               />
             </Form.Group>
