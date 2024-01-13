@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
 
 import Upload from "../../assets/upload.png";
 
@@ -16,6 +16,7 @@ import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
 import { useHistory } from "react-router-dom";
 import { axiosRequest } from '../../api/axiosDefault'
+import { Alert } from "react-bootstrap";
 
 function PostCreateForm() {
   const imageRef = useRef(null)
@@ -62,7 +63,6 @@ function PostCreateForm() {
         setErrors(error.response?.data);
       }
     }
-    console.log('submited');
   }
 
   const textFields = (
@@ -76,6 +76,7 @@ function PostCreateForm() {
           onChange={handleInputChange}
         />
       </Form.Group>
+      {errors?.title?.map((message, index) => <Alert key={index} variant="warning">{message}</Alert>)}
       <Form.Group controlId="Content">
         <Form.Label>Content</Form.Label>
         <Form.Control
@@ -86,9 +87,10 @@ function PostCreateForm() {
           onChange={handleInputChange}
         />
       </Form.Group>
+      {errors?.content?.map((message, index) => <Alert key={index} variant="warning">{message}</Alert>)}
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => {}}
+        onClick={() => history.goBack()}
       >
         cancel
       </Button>
@@ -143,6 +145,7 @@ function PostCreateForm() {
                 onChange={handleImageChange}
               />
             </Form.Group>
+            {errors?.image?.map((message, index) => <Alert key={index} variant='warning'>{message}</Alert>)}
             <div className="d-md-none">{textFields}</div>
           </Container>
         </Col>
