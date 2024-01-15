@@ -9,7 +9,7 @@ import Asset from '../../components/Asset'
 
 import appStyles from "../../App.module.css";
 import styles from "../../styles/PostsPage.module.css";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { axiosRequest } from '../../api/axiosDefault'
 
 import NoResults from '../../assets/no-results.png'

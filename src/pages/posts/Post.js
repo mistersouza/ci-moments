@@ -1,10 +1,11 @@
 import React from "react";
 import { useUser } from "../../Contexts/UserContext";
 import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Avatar from "../../components/Avatar";
 import styles from "../../styles/Post.module.css";
-import { axiosResponse } from "../../api/axiosDefault";
+import { axiosRequest, axiosResponse } from "../../api/axiosDefault";
+import { MoreDropdown } from "../../components/MoreDropdown";
 
 function Post({
   id,
@@ -23,6 +24,20 @@ function Post({
 }) {
   const user = useUser();
   const isOwner = user?.username === owner;
+  const history = useHistory(); 
+
+  const handleEditClick = () => {
+    history.push(`/posts/${id}/edit`)
+  }
+
+  const handleDeleteClick = async () => {
+    try {
+      await axiosRequest.delete(`/posts/${id}/`)
+      history.goBack()
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleLikeClick = async () => {
     try {
@@ -64,13 +79,13 @@ function Post({
             <Avatar src={profile_image} height={55} />
             {owner}
           </Link>
-          <div>
-            <span>{updated_at}</span>
-            {isOwner && postPage && "..."}
+          <div className='d-flex align-items-center'>
+            <span className='me-1'>{updated_at}</span>
+            {isOwner && postPage && <MoreDropdown handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} />}
           </div>
         </Media>
       </Card.Body>
-      <Link>
+      <Link to={`/posts/${id}`}>
         <Card.Img src={image} alt={title} />
       </Link>
       <Card.Body>
