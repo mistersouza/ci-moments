@@ -9,7 +9,7 @@ import Avatar from "../../components/Avatar";
 import { axiosResponse } from "../../api/axiosDefault";
 
 function CommentCreateForm(props) {
-  const { post, setPost, setComments, profileImage, profile_id } = props;
+  const { post, setPost, setComments, profileImage, profileId } = props;
   const [content, setContent] = useState("");
 
   const handleChange = (event) => {
@@ -45,7 +45,7 @@ function CommentCreateForm(props) {
     <Form className="mt-2" onSubmit={handleSubmit}>
       <Form.Group>
         <InputGroup>
-          <Link to={`/profiles/${profile_id}`}>
+          <Link to={`/profiles/${profileId}`}>
             <Avatar src={profileImage} />
           </Link>
           <Form.Control
@@ -58,13 +58,15 @@ function CommentCreateForm(props) {
           />
         </InputGroup>
       </Form.Group>
-      <button
-        className={`${styles.Button} btn d-block ml-auto`}
-        disabled={!content.trim()}
-        type="submit"
-      >
-        post
-      </button>
+      <div className='d-flex justify-content-end'>
+        <button
+          className={`${styles.Button} ms-auto`}
+          disabled={!content.trim()}
+          type="submit"
+        >
+          post
+        </button>
+      </div>
     </Form>
   );
 }

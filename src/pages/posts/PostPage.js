@@ -11,6 +11,7 @@ import { useUser } from "../../Contexts/UserContext";
 
 import Post from "../posts/Post";
 import CommentCreateForm from "../comments/CommentCreateForm";
+import Comment from "../comments/Comment";
 
 function PostPage() {
   const { id } = useParams();
@@ -22,10 +23,12 @@ function PostPage() {
   useEffect(() => {
     (async () => {
       try {
-        const [{ data: post }] = await Promise.all([
+        const [{ data: post }, { data: comments }] = await Promise.all([
           axiosRequest.get(`/posts/${id}`),
+          axiosRequest.get(`/comments/?post=${id}`)
         ]);
         setPost({ results: [post] });
+        setComments(comments)
       } catch (error) {
         console.log({ error });
       }
@@ -49,6 +52,17 @@ function PostPage() {
           ) : comments.results.length ? (
             "Comments"
           ) : null}
+          {comments.results.length ? (
+            comments.results.map(comment => (
+              <Comment key={comment.id} {...comment} />
+            ))
+          ) : (
+            user ? (
+              <span>No comments yet. Be the first to make an impression</span>
+            ) : (
+              <span>No comments... yet</span>
+            )
+          )}
         </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
