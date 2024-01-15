@@ -16,13 +16,14 @@ import NoResults from '../../assets/no-results.png'
 
 function PostsPage({ message, filter='' }) {
   const [ posts, setPosts ] = useState({ results: [] });
+  const [ query, setQuery ] = useState(''); 
   const [ isLoaded, setIsLoaded ] = useState(false); 
   const { pathname } = useLocation(); 
 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const { data } = await axiosRequest.get(`/posts/?${filter}`);
+          const { data } = await axiosRequest.get(`/posts/?${filter}search=${query}`);
           setPosts(data)
           setIsLoaded(true)
         } catch (error) {
@@ -30,13 +31,29 @@ function PostsPage({ message, filter='' }) {
         }
       }
       setIsLoaded(false)
-      fetchData()
-    }, [filter, pathname])
+      const timer = setTimeout(() => {
+        fetchData(); 
+      }, 1200)
+      return () => clearTimeout(timer); 
+    }, [filter, query, pathname])
     
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <p>Popular profiles mobile</p>
+        <i className={`fa fa-search ${styles.SearchIcon}`} />
+        <Form 
+          className={styles.SearchBar}
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <Form.Control
+            type='text'
+            className='mr-sm-2'
+            placeholder='Search posts'
+            value={query}
+            onChange={({target}) => setQuery(target.value)}
+          />
+        </Form>
         {isLoaded ? (
           <>
             {posts.results.length ? (
