@@ -2,7 +2,8 @@ import { axiosRequest } from "../api/axiosDefault"
 
 export const fetchMoreData = async (resource, setResource) => {
     try {
-        const { data } = axiosRequest.get(resource.next);
+        const { data } = await axiosRequest.get(resource.next);
+        console.log({data})
         setResource(prevResource => ({
             ...prevResource,
             next: data.next,
@@ -10,7 +11,7 @@ export const fetchMoreData = async (resource, setResource) => {
                 return posts.some(post => post.id === currentPost.id)
                 ? posts
                 : [...posts, currentPost]
-            }, prevResource.results)
+            }, prevResource.results),
         }))
     } catch (error) {
         console.log(error);
