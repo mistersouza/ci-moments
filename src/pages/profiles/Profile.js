@@ -5,11 +5,13 @@ import { useUser } from '../../Contexts/UserContext'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import Avatar from '../../components/Avatar'
 import { Button } from 'react-bootstrap'
+import { useSetProfile } from '../../Contexts/ProfileContext'
 
 const Profile = ({ profile, mobile}) => {
     const user = useUser()
     const { id, following_id, image,  owner } = profile; 
     const isOwner = user?.username === owner;
+    const { handleFollowClick } = useSetProfile(); 
 
   return (
     <div className={`my-3 d-flex`}>
@@ -31,7 +33,7 @@ const Profile = ({ profile, mobile}) => {
                 ) : (
                     <Button
                         className={`${btnStyle.Button} ${btnStyle.Black}`}
-                        onClick={() => {}}
+                        onClick={() => handleFollowClick(profile)}
                     >follow</Button>
                 ))}
         </div>

@@ -25,10 +25,10 @@ function ProfilePage() {
   const [profilePosts, setProfilePosts] = useState({ results: [] });
   const [ isLoaded, setIsLoaded ] = useState(false);
   const user = useUser();
-  const setProfile = useSetProfile()
+  const { setProfiles, handleFollowClick } = useSetProfile()
   const { id } = useParams()
-  const { pageProfiles } = useProfile(); 
-  const [ profile ] = pageProfiles.results;
+  const { pageProfile } = useProfile(); 
+  const [ profile ] = pageProfile.results;
   const isOwner = user?.username === profile?.owner; 
     
   useEffect(() => {
@@ -39,9 +39,9 @@ function ProfilePage() {
                 axiosRequest.get(`/posts/?owner__profile=${id}`),
             ])
             console.log({pageProfile})
-            setProfile(prevProfile => ({
+            setProfiles(prevProfile => ({
                 ...prevProfile,
-                pageProfiles: { results: [pageProfile] }
+                pageProfile: { results: [pageProfile] }
             }))
             setProfilePosts(profilePosts);
             setIsLoaded(true);
@@ -49,7 +49,7 @@ function ProfilePage() {
             console.log(error)
         }
     })()
-  }, [setProfile, id])
+  }, [setProfiles, id])
 
   const mainProfile = (
     <>
@@ -88,7 +88,7 @@ function ProfilePage() {
         ) : (
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Black}`}
-                onClick={() => {}}
+                onClick={() => handleFollowClick(profile)}
             >follow</Button>
         ))}
         </Col>
