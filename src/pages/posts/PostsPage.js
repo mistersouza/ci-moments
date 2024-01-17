@@ -11,6 +11,7 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/PostsPage.module.css";
 import { useLocation } from "react-router";
 import { axiosRequest } from '../../api/axiosDefault'
+import { useUser } from '../../contexts/UserContext'
 
 import NoResults from '../../assets/no-results.png'
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -21,7 +22,8 @@ function PostsPage({ message, filter='' }) {
   const [ posts, setPosts ] = useState({ results: [] });
   const [ query, setQuery ] = useState(''); 
   const [ isLoaded, setIsLoaded ] = useState(false); 
-  const { pathname } = useLocation(); 
+  const { pathname } = useLocation();
+  const user = useUser(); 
 
     useEffect(() => {
       const fetchData = async () => {
@@ -30,7 +32,7 @@ function PostsPage({ message, filter='' }) {
           setPosts(data)
           setIsLoaded(true)
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       }
       setIsLoaded(false)
@@ -38,7 +40,7 @@ function PostsPage({ message, filter='' }) {
         fetchData(); 
       }, 1200)
       return () => clearTimeout(timer); 
-    }, [filter, query, pathname])
+    }, [filter, query, pathname, user])
     
   return (
     <Row className="h-100">

@@ -12,7 +12,7 @@ import { axiosResponse } from "../../api/axiosDefault";
 import {
   useUser,
   useSetUser,
-} from "../../Contexts/UserContext";
+} from "../../contexts/UserContext";
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
@@ -46,9 +46,9 @@ const UsernameForm = () => {
         username,
       }));
       history.goBack();
-    } catch (err) {
-      console.log(err);
-      setErrors(err.response?.data);
+    } catch (error) {
+      // console.log(error);
+      setErrors(error.response?.data);
     }
   };
 

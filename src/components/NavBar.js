@@ -1,12 +1,15 @@
 import React from "react";
 import styles from "../styles/NavBar.module.css";
 import logo from "../assets/logo.png";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
-import { useSetUser, useUser } from "../Contexts/UserContext";
+import { useSetUser, useUser } from "../contexts/UserContext";
 import Avatar from "./Avatar";
 import axios from "axios";
 import { useToggleMenu } from "../hooks/useToggleMenu";
+import { removeTokenTimestamp } from "../utils/utils";
 
 const NavBar = () => {
   const user = useUser();
@@ -16,9 +19,10 @@ const NavBar = () => {
   const handleLogOut = async () => {
     try {
     await axios.post("dj-rest-auth/logout/");
+    removeTokenTimestamp()
     setUser(null);
     } catch (error) {
-    console.log(error);
+    // console.log(error);
     }
   };
 

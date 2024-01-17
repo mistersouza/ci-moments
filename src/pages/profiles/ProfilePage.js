@@ -14,10 +14,10 @@ import PopularProfiles from "./PopularProfiles";
 import Post from "../posts/Post";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import NoResults from '../../assets/no-results.png'
-import { useUser } from "../../Contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 import { useParams } from 'react-router'
 import { axiosRequest } from "../../api/axiosDefault";
-import { useProfile, useSetProfile } from "../../Contexts/ProfileContext";
+import { useProfile, useSetProfile } from "../../contexts/ProfileContext";
 import { Button, Image } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
@@ -39,7 +39,6 @@ function ProfilePage() {
                 axiosRequest.get(`/profiles/${id}/`),
                 axiosRequest.get(`/posts/?owner__profile=${id}`),
             ])
-            console.log({pageProfile})
             setProfiles(prevProfile => ({
                 ...prevProfile,
                 pageProfile: { results: [pageProfile] }
@@ -47,7 +46,7 @@ function ProfilePage() {
             setProfilePosts(profilePosts);
             setIsLoaded(true);
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     })()
   }, [setProfiles, id])

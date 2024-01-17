@@ -1,6 +1,9 @@
 import React from "react";
-import { useUser } from "../../Contexts/UserContext";
-import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useUser } from "../../contexts/UserContext";
+import Card from "react-bootstrap/Card";
+import Media from "react-bootstrap/Media";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Avatar from "../../components/Avatar";
 import styles from "../../styles/Post.module.css";
@@ -35,7 +38,7 @@ function Post({
       await axiosRequest.delete(`/posts/${id}/`)
       history.goBack()
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -50,8 +53,8 @@ function Post({
             : post;
         }),
       }));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      // console.log(error);
     }
   }
 
@@ -66,8 +69,8 @@ function Post({
           : post
         )),
       }));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      // console.log(error);
     }
   }
 

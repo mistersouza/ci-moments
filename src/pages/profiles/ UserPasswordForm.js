@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 
 import { useHistory, useParams } from "react-router-dom";
 import { axiosResponse } from "../../api/axiosDefault";
-import { useUser } from "../../Contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
@@ -46,9 +46,9 @@ const UserPasswordForm = () => {
     try {
       await axiosResponse.post("/dj-rest-auth/password/change/", userData);
       history.goBack();
-    } catch (err) {
-      console.log(err);
-      setErrors(err.response?.data);
+    } catch (error) {
+      // console.log(error);
+      setErrors(error.response?.data);
     }
   };
 

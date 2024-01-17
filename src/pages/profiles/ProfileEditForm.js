@@ -13,7 +13,7 @@ import { axiosRequest } from "../../api/axiosDefault";
 import {
   useUser,
   useSetUser,
-} from "../../Contexts/UserContext";
+} from "../../contexts/UserContext";
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
@@ -41,8 +41,8 @@ const ProfileEditForm = () => {
           const { data } = await axiosRequest.get(`/profiles/${id}/`);
           const { name, content, image } = data;
           setProfileData({ name, content, image });
-        } catch (err) {
-          console.log(err);
+        } catch (error) {
+          // console.log(error);
           history.push("/");
         }
       } else {
@@ -77,9 +77,9 @@ const ProfileEditForm = () => {
         profile_image: data.image,
       }));
       history.goBack();
-    } catch (err) {
-      console.log(err);
-      setErrors(err.response?.data);
+    } catch (error) {
+      // console.log(error);
+      setErrors(error.response?.data);
     }
   };
 

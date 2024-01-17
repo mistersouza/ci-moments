@@ -14,8 +14,9 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
-import { useSetUser } from "../../Contexts/UserContext";
+import { useSetUser } from "../../contexts/UserContext";
 import useRedirect from "../../hooks/useRedirect";
+import { setTokenTimestamp } from '../../utils/utils'
 
 function SignInForm() {
   const setUser = useSetUser(); 
@@ -38,6 +39,7 @@ function SignInForm() {
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", singInData);
       setUser(data.user)
+      setTokenTimestamp(data); 
       history.goBack();
     } catch (error) {
       setErrors(error.response?.data);

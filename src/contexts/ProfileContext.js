@@ -37,7 +37,7 @@ export const ProfileProvider = ({ children }) => {
                 }
             }))
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -59,7 +59,7 @@ export const ProfileProvider = ({ children }) => {
                 },
             }))
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -74,7 +74,7 @@ export const ProfileProvider = ({ children }) => {
                     popularProfiles: data
                 }))
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         })()
     }, [user])

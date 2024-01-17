@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 import styles from "../../styles/Comment.module.css";
-import { useUser } from "../../Contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 import { axiosResponse } from "../../api/axiosDefault";
 
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { Media } from "react-bootstrap";
+import Media from "react-bootstrap/Media";
 
 import Avatar from "../../components/Avatar";
 import CommentEditForm from "./CommentEditForm";
@@ -41,7 +41,7 @@ function Comment({
         results: prevComments.results.filter((comment) => comment.id !== id),
       }));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   return (

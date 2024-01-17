@@ -4,8 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
-import { UserProvider } from "./Contexts/UserContext";
-import { ProfileProvider } from "./Contexts/ProfileContext";
+import { UserProvider } from "./contexts/UserContext";
+import { ProfileProvider } from "./contexts/ProfileContext";
 
 ReactDOM.render(
   <Router>

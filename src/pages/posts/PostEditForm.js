@@ -35,7 +35,7 @@ function PostEditForm() {
 
         is_owner ? setPostData({ title, content, image }) : history.push("/");
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     })();
   }, [history, id]);
@@ -71,7 +71,7 @@ function PostEditForm() {
       await axiosRequest.put(`/posts/${id}/`, formData);
       history.push(`/posts/${id}`);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (error.response?.status !== 401) {
         setErrors(error.response?.data);
       }

@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import appStyles from "../../App.module.css";
 import { axiosRequest } from "../../api/axiosDefault";
 import { fetchMoreData } from "../../utils/utils";
-import { useUser } from "../../Contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 
 import Post from "../posts/Post";
 import CommentCreateForm from "../comments/CommentCreateForm";
@@ -33,7 +33,7 @@ function PostPage() {
         setPost({ results: [post] });
         setComments(comments)
       } catch (error) {
-        console.log({ error });
+        // console.log({ error });
       }
     })();
   }, [id]);

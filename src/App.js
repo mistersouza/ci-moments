@@ -8,12 +8,13 @@ import SignInForm from "./pages/auth/SignInForm";
 import PostCreateForm from "./pages/posts/PostCreateForm";
 import PostPage from "./pages/posts/PostPage";
 import PostsPage from "./pages/posts/PostsPage";
-import { useUser } from "./Contexts/UserContext";
+import { useUser } from "./contexts/UserContext";
 import PostEditForm from "./pages/posts/PostEditForm";
 import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from './pages/profiles/ UserPasswordForm'
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
+import NotFound from "./components/NotFound";
 
 function App() {
   const user = useUser(); 
@@ -71,7 +72,7 @@ function App() {
                 path="/profiles/:id/edit"
                 render={() => <ProfileEditForm />}
               />
-              <Route render={() => <p>Page not found</p>} />
+              <Route render={() => <NotFound />} />
             </Switch>
           </Container>
         </div>

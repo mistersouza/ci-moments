@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap'
 import appStyles from '../../App.module.css'
 import Asset from '../../components/Asset';
 import Profile from './Profile';
-import { useProfile } from '../../Contexts/ProfileContext';
+import { useProfile } from '../../contexts/ProfileContext';
 
 function PopularProfiles({ mobile }) {
     const { popularProfiles } = useProfile();

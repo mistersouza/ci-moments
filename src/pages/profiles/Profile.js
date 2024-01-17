@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from '../../styles/Profile.module.css'
 import btnStyle from '../../styles/Button.module.css'
-import { useUser } from '../../Contexts/UserContext'
+import { useUser } from '../../contexts/UserContext'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import Avatar from '../../components/Avatar'
 import { Button } from 'react-bootstrap'
-import { useSetProfile } from '../../Contexts/ProfileContext'
+import { useSetProfile } from '../../contexts/ProfileContext'
 
 const Profile = ({ profile, mobile}) => {
     const user = useUser()
