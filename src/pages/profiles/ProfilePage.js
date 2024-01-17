@@ -12,6 +12,7 @@ import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
 import PopularProfiles from "./PopularProfiles";
 import Post from "../posts/Post";
+import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import NoResults from '../../assets/no-results.png'
 import { useUser } from "../../Contexts/UserContext";
 import { useParams } from 'react-router'
@@ -53,6 +54,7 @@ function ProfilePage() {
 
   const mainProfile = (
     <>
+      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
       <Row noGutters className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
           <Image 

@@ -15,6 +15,7 @@ import {
   Alert,
 } from "react-bootstrap";
 import axios from "axios";
+import useRedirect from "../../hooks/useRedirect";
 
 const SignUpForm = () => {
   const [signUpData, setSignUpData] = useState({
@@ -25,6 +26,7 @@ const SignUpForm = () => {
   const [errors, setErrors] = useState({});
   const history = useHistory();
   const { username, password1, password2 } = signUpData;
+  useRedirect('loggedIn'); 
 
   const handleInputChange = (event) => {
     setSignUpData({

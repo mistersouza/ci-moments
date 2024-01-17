@@ -15,6 +15,7 @@ import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 import { useSetUser } from "../../Contexts/UserContext";
+import useRedirect from "../../hooks/useRedirect";
 
 function SignInForm() {
   const setUser = useSetUser(); 
@@ -24,6 +25,7 @@ function SignInForm() {
   });
   const [errors, setErrors] = useState({});
   const { username, password } = singInData;
+  useRedirect('loggedIn');
   const history = useHistory();
   const handleInputChange = (event) => {
     setSignInData({
@@ -36,7 +38,7 @@ function SignInForm() {
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", singInData);
       setUser(data.user)
-      history.push("/");
+      history.goBack();
     } catch (error) {
       setErrors(error.response?.data);
     }
