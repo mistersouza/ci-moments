@@ -33,12 +33,12 @@ export const handleFollow = (profile, targetProfile, followingId) => {
         : profile;
   };
 
-  export const handleUnfollow = (profile, targetProfile, followingId) => {
+  export const handleUnfollow = (profile, targetProfile) => {
     return profile.id === targetProfile.id
       ? {
           ...profile,
           followers_count: profile.followers_count - 1,
-          followingId,
+          following_id: null,
         }
       : profile.is_owner
         ? { 

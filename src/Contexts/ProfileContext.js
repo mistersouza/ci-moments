@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useUser } from "./UserContext";
 
 import { axiosRequest, axiosResponse } from "../api/axiosDefault";
-import { handleFollow } from "../utils/utils";
+import { handleFollow, handleUnfollow } from "../utils/utils";
 
 export const ProfileContext = createContext();
 export const SetProfileContext = createContext(); 
@@ -41,6 +41,28 @@ export const ProfileProvider = ({ children }) => {
         }
     }
 
+    const handleUnfollowClick = async (targetProfile) => {
+        try {
+            await axiosResponse.delete(`/followers/${targetProfile.following_id}/`)
+            setProfiles(prevProfiles => ({
+                ...prevProfiles,
+                pageProfile: {
+                    results: prevProfiles.pageProfile.results.map(profile =>
+                        handleUnfollow(profile, targetProfile)
+                    ),
+                },
+                popularProfiles: {
+                    ...prevProfiles.popularProfiles,
+                    results: prevProfiles.popularProfiles.results.map(profile => 
+                        handleUnfollow(profile, targetProfile)
+                    ),
+                },
+            }))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         (async () => {
             try {
@@ -59,7 +81,7 @@ export const ProfileProvider = ({ children }) => {
 
     return (
         <ProfileContext.Provider value={profiles}>
-            <SetProfileContext.Provider value={{setProfiles, handleFollowClick}}>
+            <SetProfileContext.Provider value={{setProfiles, handleFollowClick, handleUnfollowClick}}>
                 {children}
             </SetProfileContext.Provider>
         </ProfileContext.Provider>
